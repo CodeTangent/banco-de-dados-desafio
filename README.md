@@ -1,25 +1,94 @@
-# Sistema de Banco de Dados de Filmes
+# 🎬 Sistema de Banco de Dados de Filmes
 
-## Visão Geral
-O sistema permite realizar consultas SQL em um banco de dados de filmes, atores e gêneros, extraindo informações relevantes para análises. Desenvolvido como parte de um desafio guiado da Trilha .NET da DIO, o projeto foca na prática de consultas, relacionamentos e manipulação de dados.
+## 🚀 Descrição
 
-## Funcionalidades Principais
-- Estruturação de banco de dados com tabelas para Filmes, Atores e Gêneros  
-- Relacionamentos muitos-para-muitos entre filmes-atores e filmes-gêneros  
-- Execução de 12 consultas SQL diferentes para retorno de dados específicos:  
-  - Listagem de filmes por nome, ano e duração  
-  - Filtros por ano e duração  
-  - Contagem de filmes por ano  
-  - Listagem de atores por gênero  
-  - Relação de filmes com gêneros  
-  - Associação de filmes com atores e papéis  
+Projeto desenvolvido para modelar e consultar um banco de dados relacional de filmes, permitindo a extração de informações relevantes através de consultas SQL.
 
-## Conceitos Aplicados
-- Modelagem de banco de dados relacional  
-- Consultas SQL com filtros, ordenações e agrupamentos  
-- Relacionamentos muitos-para-muitos  
-- Validação e integridade de dados  
+O sistema simula um cenário real de catálogo de filmes, com relacionamentos entre filmes, atores e gêneros.
 
-## Preparando o Banco
-- Executar o script **Script Filmes.sql** no SQL Server (localizado na pasta `Scripts`)  
-- O script cria o banco **Filmes** com todas as tabelas e dados necessários para as consultas
+---
+
+## 🧠 Problema resolvido
+
+Como estruturar e consultar dados relacionais de forma eficiente, permitindo análises como:
+
+* Quais filmes foram lançados em determinado ano
+* Quantidade de filmes por período
+* Relação entre filmes, atores e gêneros
+* Identificação de padrões nos dados
+
+---
+
+## 🛠 Tecnologias
+
+* SQL Server
+* T-SQL
+
+---
+
+## 🧱 Estrutura do Banco
+
+* **Filmes** → informações gerais (nome, ano, duração)
+* **Atores** → dados dos atores
+* **Gêneros** → categorias dos filmes
+* **FilmesGenero** → relacionamento muitos-para-muitos
+* **ElencoFilme** → associação entre atores e filmes
+
+---
+
+## 💡 Exemplos de consultas
+
+### 📊 Contagem de filmes por ano
+
+```sql
+SELECT Ano, COUNT(*) AS Quantidade
+FROM Filmes
+GROUP BY Ano
+ORDER BY Quantidade DESC;
+```
+
+### 🎭 Relação entre filmes e gêneros
+
+```sql
+SELECT F.Nome AS Filme, G.Genero
+FROM FilmesGenero FG
+INNER JOIN Filmes F ON FG.IdFilme = F.Id
+INNER JOIN Generos G ON FG.IdGenero = G.Id;
+```
+
+### 🎬 Associação de atores aos filmes
+
+```sql
+SELECT 
+    F.Nome AS Filme,
+    A.PrimeiroNome,
+    A.UltimoNome,
+    EF.Papel
+FROM ElencoFilme EF
+INNER JOIN Atores A ON EF.IdAtor = A.Id
+INNER JOIN Filmes F ON EF.IdFilme = F.Id;
+```
+
+---
+
+## ⚙️ Como executar
+
+1. Executar o script `Script Filmes.sql` para criação do banco
+2. Utilizar o arquivo `SQL_Resolvido.sql` para executar as consultas
+
+---
+
+## 🎯 Objetivo do projeto
+
+Praticar modelagem de banco de dados relacional e construção de consultas SQL aplicadas a um cenário próximo ao real.
+
+---
+
+## 📈 Possíveis melhorias
+
+* Criação de Views para consultas frequentes
+* Implementação de Stored Procedures
+* Integração com API em C# ou Python
+* Criação de interface para consulta de dados
+
+---
